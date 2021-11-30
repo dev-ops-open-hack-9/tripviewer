@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: dotnet build ${{github.workspace}}/apis/poi/web
     - name: Test
-      run: dotnet test --verbosity normal ${{github.workspace}}/apis/poi/tests/UnitTests
+      run: dotnet test --verbosity normal ${{github.workspace}}/apis/poi/tests/UnitTest
