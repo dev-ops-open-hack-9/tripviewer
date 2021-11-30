@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ${{github.workspace}}/apis/poi
     - name: Build
-      run: dotnet build --no-restore ${{github.workspace}}/apis/poi/web
+      run: dotnet build ${{github.workspace}}/apis/poi/web
     - name: Test
-      run: dotnet test --no-build --verbosity normal ${{github.workspace}}/apis/poi/tests/UnitTests
+      run: dotnet test --verbosity normal ${{github.workspace}}/apis/poi/tests/UnitTests
