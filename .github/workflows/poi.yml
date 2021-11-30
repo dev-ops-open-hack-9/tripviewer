@@ -27,6 +27,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore ./apis/poi/web/poi.csproj
+      run: dotnet build --no-restore ${{env.GITHUB_WORKSPACE}}/apis/poi/web/poi.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./apis/poi/tests/UnitTests/UtilityTests.cs
+      run: dotnet test --no-build --verbosity normal ${{env.GITHUB_WORKSPACE}}/apis/poi/tests/UnitTests/UtilityTests.cs
