@@ -26,7 +26,8 @@ jobs:
       run: dotnet build ${{github.workspace}}/apis/poi/web
     - name: Test
       run: dotnet test --verbosity normal ${{github.workspace}}/apis/poi/tests/UnitTest
+    - name: Create issue
       if: ${{ failure() }}
-    - uses: JasonEtco/create-an-issue@v2
+      uses: JasonEtco/create-an-issue@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
