@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      working-directoy: ./apis/poi/
+      working-directory: ./apis/poi/
     defaults:
       run:
         working-directory: ${{env.working-directory}}
