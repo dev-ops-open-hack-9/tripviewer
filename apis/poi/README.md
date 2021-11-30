@@ -36,3 +36,4 @@ This will run both the Unit Tests and the Integration Tests
 test
 test2
 test3
+test4
