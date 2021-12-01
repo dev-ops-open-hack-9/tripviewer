@@ -16,7 +16,7 @@ jobs:
         tenant: ${{ secrets.tenant }}
         registry: ${{ secrets.registry }}
         repository: ${{ secrets.repository }}
-        image: api-poi
+        image: api-poi:v1
         git_access_token: ${{ secrets.git_access_token }}
         folder: ./apis/poi/web  #src/docker
         dockerfile: ./Dockerfile  #../../dockerfiles/Dockerfile
