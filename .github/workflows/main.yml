@@ -1,0 +1,22 @@
+name: Publish Docker
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    
+    - name: ACR build
+      id: acr
+      uses: azure/acr-build@v1
+      with:
+        service_principal: ${{ secrets.service_principal }}
+        service_principal_password: ${{ secrets.service_principal_password }}
+        tenant: ${{ secrets.tenant }}
+        registry: ${{ secrets.registry }}
+        repository: ${{ secrets.repository }}
+        image: image
+        #git_access_token: ${{ secrets.git_access_token }}
+        folder: ${{github.workspace}}/apis/poi  #src/docker
+        dockerfile: ${{github.workspace}}/apis/poi/web/Dockerfile  #../../dockerfiles/Dockerfile
