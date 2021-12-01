@@ -23,7 +23,7 @@ jobs:
         
     - name: Docker Build USER-JAVA
       run: |
-        cd apis/user-java/web && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}      
+        cd apis/user-java && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}      
     
     - name: Login ACR for push
       uses: Azure/login@v1
