@@ -9,7 +9,7 @@ env:
   ACRNAME: "openhackck258x60acr"
   IMAGE_NAME_POI: "devopsoh/api-userprofile"
   BASEIMAGETAG_POI: ${{ github.sha }}
-  AZURE_WEBAPP_NAME: "openhackck258x60poi"
+  AZURE_WEBAPP_NAME: "openhackck258x60userprofile"
 
 
 jobs:
