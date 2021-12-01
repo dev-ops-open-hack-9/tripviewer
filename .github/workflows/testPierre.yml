@@ -4,6 +4,10 @@ name: Test-Pierrc
 
 on:
   workflow_dispatch
+  
+env:
+  ACR_NAME: openhackck258x60acr
+  
 
 jobs:
 
@@ -19,6 +23,14 @@ jobs:
       uses: Azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+
+    - name: Connexion à Azure Container Registry
+      uses: docker/login-action@v1.10.0
+      with:
+        registry: ${{ env.ACR_NAME }}.azurecr.io
+        username: ${{ env.ACR_NAME }}
+        password: "${{ secrets.ACR_KEY }}"
 
 
 
