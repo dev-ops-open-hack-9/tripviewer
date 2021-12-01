@@ -1,0 +1,24 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test-Pierrc
+
+on:
+  workflow_dispatch
+
+jobs:
+
+  Build_Image:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Recuperation du repos 
+      uses: actions/checkout@v2  
+
+    - name: Login Azure
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+
+
