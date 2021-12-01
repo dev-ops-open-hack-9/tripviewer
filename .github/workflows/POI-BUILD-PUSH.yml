@@ -3,8 +3,15 @@
 name: POI-BUILD-PUSH
 
 on:
-  workflow_dispatch
-  
+  push:
+    paths:
+      - 'apis/poi/**'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'apis/poi/**'
+    branches: [ main ]
+    
 env:
   ACRNAME: "openhackck258x60acr"
   IMAGE_NAME_POI: "devopsoh/api-poi"
