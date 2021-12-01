@@ -3,7 +3,14 @@
 name: TRIPS-BUILD-PUSH
 
 on:
-  workflow_dispatch
+  push:
+    paths:
+      - 'apis/trips/**'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'apis/trips/**'
+    branches: [ main ]
   
 env:
   ACRNAME: "openhackck258x60acr"
