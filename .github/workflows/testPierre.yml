@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Test-Pierrc
+name: Test-Buil-Push
 
 on:
   workflow_dispatch
@@ -18,9 +18,7 @@ jobs:
     steps:
 
     - name: Recuperation du repos 
-      uses: actions/checkout@v2  
-
-      
+      uses: actions/checkout@v2      
 
     - name: Connexion à Azure Container Registry
       uses: docker/login-action@v1.10.0
