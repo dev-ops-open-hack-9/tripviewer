@@ -9,6 +9,7 @@ env:
   ACRNAME: "openhackck258x60acr"
   IMAGE_NAME_POI: "devopsoh/api-poi"
   BASEIMAGETAG_POI: ${{ github.sha }}
+  AZURE_WEBAPP_NAME: "openhackck258x60poi"
 
 
 jobs:
@@ -37,6 +38,13 @@ jobs:
     - name: Push to ACR
       run: |
         docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
+    
+    - name: 'Deploy to Azure Web App for Container'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
+
        
     
         
