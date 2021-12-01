@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: TRIPS-BUILD-PUSH
+
+on:
+  workflow_dispatch
+  
+env:
+  ACRNAME: "openhackck258x60acr"
+  IMAGE_NAME_TRIPS: "devopsoh/api-trips"
+  BASEIMAGETAG_TRIPS: ${{ github.sha }}
+  AZURE_WEBAPP_NAME: "openhackck258x60trips"
+
+
+jobs:
+
+  Build_Image:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Recuperation du repos 
+      uses: actions/checkout@v2
+        
+    - name: Docker Build TRIPS
+      run: |
+        cd apis/trips && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_TRIPS }}:${{ env.BASEIMAGETAG_TRIPS }}      
+    
+    - name: Login ACR for push
+      uses: Azure/login@v1
+      with:        
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        
+    - name: Log ACR
+      run: |
+        az acr login --name ${{ env.ACRNAME }}
+        
+    - name: Push to ACR
+      run: |
+        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_TRIPS }}:${{ env.BASEIMAGETAG_TRIPS }}
+    
+    - name: 'Deploy to Azure Web App for Container'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_TRIPS }}:${{ env.BASEIMAGETAG_TRIPS }}
