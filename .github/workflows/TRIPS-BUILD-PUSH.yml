@@ -6,10 +6,12 @@ on:
   push:
     paths:
       - 'apis/trips/**'
+      - '.github/workflows/TRIPS-BUILD-PUSH.yml'
     branches: [ main ]
   pull_request:
     paths:
       - 'apis/trips/**'
+      - '.github/workflows/TRIPS-BUILD-PUSH.yml'
     branches: [ main ]
   
 env:
