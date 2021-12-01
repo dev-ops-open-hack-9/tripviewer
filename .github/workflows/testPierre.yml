@@ -23,7 +23,7 @@ jobs:
         
     - name: Docker Build
       run: |
-        cd apis/poi/web && docker build . -t {{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
+        cd apis/poi/web && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
       
     
     - name: Login ACR for push
@@ -37,7 +37,7 @@ jobs:
         
     - name: Push to ACR
       run: |
-        docker push {{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
+        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
        
     
         
