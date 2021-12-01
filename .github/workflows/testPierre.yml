@@ -24,6 +24,18 @@ jobs:
     - name: Docker Build
       run: |
         cd apis/poi/web && docker build . -t devopoh/api-poi:0.1.0
+      
+    
+    - name: Login ACR for push
+      uses: Azure/login@v1
+      with:        
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        
+    - name: Log ACR
+      run: |
+        az acr login --name ${{ env.ACRNAME }}
+       
+    
         
         
         
