@@ -38,7 +38,7 @@ jobs:
       run: |
         docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}
         
-            - name: 'Deploy to Azure Web App for Container'
+    - name: 'Deploy to Azure Web App for Container'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
