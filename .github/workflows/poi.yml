@@ -1,0 +1,33 @@
+name: .NET
+
+on:
+  push:
+    paths:
+      - 'apis/poi/**'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'apis/poi/**'
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Restore dependencies
+      run: dotnet restore ${{github.workspace}}/apis/poi
+    - name: Build
+      run: dotnet build ${{github.workspace}}/apis/poi/web
+    - name: Test
+      run: dotnet test --verbosity normal ${{github.workspace}}/apis/poi/tests/UnitTests
+    - name: Create issue
+      if: ${{ failure() }}
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
