@@ -23,7 +23,7 @@ jobs:
         
     - name: Docker Build
       run: |
-        cd apis/poi/web && docker build . -t devopoh/api-poi:0.1.0
+        cd apis/poi/web && docker build . -t openhackck258x60acr.azurecr.io/devopoh/api-poi:0.1.0
       
     
     - name: Login ACR for push
@@ -34,6 +34,10 @@ jobs:
     - name: Log ACR
       run: |
         az acr login --name ${{ env.ACRNAME }}
+        
+    - name: Push to ACR
+      run: |
+        docker push openhackck258x60acr.azurecr.io/devopoh/api-poi:0.1.0
        
     
         
