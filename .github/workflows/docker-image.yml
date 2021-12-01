@@ -16,4 +16,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file ${{github.workspace}}/apis/poi/web/Dockerfile --tag api-poi:$(date +%s)
+      run: docker build ${{github.workspace}}/apis/poi/web --file ${{github.workspace}}/apis/poi/web/Dockerfile --tag api-poi:$(date +%s)
