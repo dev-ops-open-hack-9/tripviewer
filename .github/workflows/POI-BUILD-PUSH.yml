@@ -8,7 +8,7 @@ on:
 env:
   ACRNAME: "openhackck258x60acr"
   IMAGE_NAME_POI: "devopsoh/api-poi"
-  BASEIMAGETAG_POI: "0.1.0"
+  BASEIMAGETAG_POI: $(date +%s)
   
 
 jobs:
