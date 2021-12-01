@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Test-Buil-Push
+name: POI-BUILD-PUSH
 
 on:
   workflow_dispatch
