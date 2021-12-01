@@ -23,7 +23,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build ${{github.workspace}}/apis/poi/web --file ${{github.workspace}}/apis/poi/web/Dockerfile --tag devopsoh/api-poi:$(date +%s)
-      
+    
+    - name: Login to Azure
+      uses: Azure/login@v1
+      with:        
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+    
     - name: Log to ACR
       run: |
         az acr login --name ${{ env.ACRNAME }}
@@ -31,11 +36,6 @@ jobs:
     - name: Push to ACR
       run: |
         docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
-    
-    - name: Login to Azure
-      uses: Azure/login@v1
-      with:        
-        creds: ${{secrets.AZURE_CREDENTIALS}}
 
     - name: 'Deploy to Azure Web App for Container'
       uses: azure/webapps-deploy@v2
