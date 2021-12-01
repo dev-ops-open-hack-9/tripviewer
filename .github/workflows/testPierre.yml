@@ -7,7 +7,7 @@ on:
   
 env:
   ACRNAME: "openhackck258x60acr"
-  IMAGE_NAME: "devopoh/api-poi"
+  IMAGE_NAME: "devopsoh/api-poi"
   BASEIMAGETAG: "0.1.0"
   
 
@@ -23,7 +23,7 @@ jobs:
         
     - name: Docker Build
       run: |
-        cd apis/poi/web && docker build . -t openhackck258x60acr.azurecr.io/devopoh/api-poi:0.1.0
+        cd apis/poi/web && docker build . -t {{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
       
     
     - name: Login ACR for push
@@ -37,7 +37,7 @@ jobs:
         
     - name: Push to ACR
       run: |
-        docker push openhackck258x60acr.azurecr.io/devopoh/api-poi:0.1.0
+        docker push {{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
        
     
         
