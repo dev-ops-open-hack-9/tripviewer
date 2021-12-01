@@ -8,8 +8,8 @@ on:
 env:
   ACRNAME: "openhackck258x60acr"
   IMAGE_NAME_POI: "devopsoh/api-poi"
-  BASEIMAGETAG_POI: $(date +%s)
-  
+  BASEIMAGETAG_POI: ${{ github.sha }}
+
 
 jobs:
 
