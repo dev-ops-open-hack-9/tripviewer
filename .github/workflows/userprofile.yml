@@ -22,7 +22,7 @@ jobs:
     - name: Recuperation du repos 
       uses: actions/checkout@v2
         
-    - name: Docker Build POI
+    - name: Docker Build USERPROFILE
       run: |
         cd apis/userprofile && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}      
     
