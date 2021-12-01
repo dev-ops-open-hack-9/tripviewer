@@ -7,8 +7,8 @@ on:
   
 env:
   ACRNAME: "openhackck258x60acr"
-  IMAGE_NAME: "devopsoh/api-poi"
-  BASEIMAGETAG: "0.1.0"
+  IMAGE_NAME_POI: "devopsoh/api-poi"
+  BASEIMAGETAG_POI: "0.1.0"
   
 
 jobs:
@@ -21,10 +21,9 @@ jobs:
     - name: Recuperation du repos 
       uses: actions/checkout@v2
         
-    - name: Docker Build
+    - name: Docker Build POI
       run: |
-        cd apis/poi/web && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
-      
+        cd apis/poi/web && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}      
     
     - name: Login ACR for push
       uses: Azure/login@v1
@@ -37,7 +36,7 @@ jobs:
         
     - name: Push to ACR
       run: |
-        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.BASEIMAGETAG }}
+        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
        
     
         
