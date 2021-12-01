@@ -18,5 +18,5 @@ jobs:
         repository: ${{ secrets.repository }}
         image: image
         git_access_token: ${{ secrets.git_access_token }}
-        folder: ./apis/poi  #src/docker
-        dockerfile: ./web/Dockerfile  #../../dockerfiles/Dockerfile
+        folder: ./apis/poi/web  #src/docker
+        dockerfile: ./Dockerfile  #../../dockerfiles/Dockerfile
