@@ -54,8 +54,13 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
         images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
         slot-name: staging
-
-       
+        
+    - name: Check API availability
+      if: ${{ run curl -sb -i https://openhackck258x60poi.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || echo "failed" == failed }}
+      uses: actions/github-script@v3
+      with:
+        script: |
+          core.setFailed('API is not available')  
     
         
         
