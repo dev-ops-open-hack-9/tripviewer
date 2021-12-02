@@ -56,15 +56,13 @@ jobs:
         images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
         slot-name: staging
         
-    - name: 'Test if application is running'
+    - name: 'Swap'
       run: |
         sleep 15s
-        curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || false }}
-    
-    - name: Swap
-      run: az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
-    
-        
+        curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || false
+        az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
+        test=`curl -sb -i https://openhackck258x60poi.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || false`
+        [ $test != "success"] az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot production --target-slot staging
         
         
 
