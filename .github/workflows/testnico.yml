@@ -1,17 +1,8 @@
 # This is a basic workflow to help you get started with Actions
 
-name: USER-JAVA-BUILD-PUSH
+name: USER-JAVA-BUILD-PUSH-TEST
 on:
-  push:
-    paths:
-      - 'apis/user-java/**'
-      - '.github/workflows/USER-JAVA-BUILD-PUSH.yml'
-    branches: [ main ]
-  pull_request:
-    paths:
-      - 'apis/user-java/**'
-      - '.github/workflows/USER-JAVA-BUILD-PUSH.yml'
-    branches: [ main ]
+  workflow_dispatch
   
 env:
   ACRNAME: "openhackck258x60acr"
