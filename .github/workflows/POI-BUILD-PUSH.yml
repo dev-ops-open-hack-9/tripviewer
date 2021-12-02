@@ -19,6 +19,7 @@ env:
   IMAGE_NAME_POI: "devopsoh/api-poi"
   BASEIMAGETAG_POI: ${{ github.sha }}
   AZURE_WEBAPP_NAME: "openhackck258x60poi"
+  CONTAINER_REGISTRY: openhackck258x60acr.azurecr.io
 
 
 jobs:
@@ -52,7 +53,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
-        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
+        images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
         slot-name: staging
         
     - name: 'Test if application is running'
