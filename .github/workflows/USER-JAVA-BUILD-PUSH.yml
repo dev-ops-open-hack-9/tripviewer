@@ -18,6 +18,7 @@ env:
   IMAGE_NAME_USER_JAVA: "devopsoh/api-user-java"
   BASEIMAGETAG_USER_JAVA: ${{ github.sha }}
   AZURE_WEBAPP_NAME: "openhackck258x60userjava"
+  CONTAINER_REGISTRY: openhackck258x60acr.azurecr.io
 
 jobs:
 
@@ -50,5 +51,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
-        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}
+        images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}
        
