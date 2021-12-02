@@ -8,7 +8,7 @@ env:
   ACRNAME: "openhackck258x60acr"
   CONTAINER_REGISTRY: openhackck258x60acr.azurecr.io
   IMAGE_NAME_USER_JAVA: "devopsoh/api-user-java"
-  BASEIMAGETAG_USER_JAVA: nicov1
+  BASEIMAGETAG_USER_JAVA: "nicov1"
   AZURE_WEBAPP_NAME: "openhackck258x60userjava"
   REGISTRY_USERNAME: "openhackck258x60acr"
   REGISTRY_PASSWORD: "rR3FtFLI6kqyY+Q5ew4vFnu384K9vkGu"
