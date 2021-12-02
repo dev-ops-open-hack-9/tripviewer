@@ -57,7 +57,7 @@ jobs:
         
     - name: 'Test if application is running'
       run: |
-        curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || echo "failed" == failed }}
+        curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || echo '::error name=SELECTED_COLOR::red'}}
     
         
         
