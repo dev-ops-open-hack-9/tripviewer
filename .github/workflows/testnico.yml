@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+
+name: USER-JAVA-BUILD-PUSH
+on:
+  push:
+    paths:
+      - 'apis/user-java/**'
+      - '.github/workflows/USER-JAVA-BUILD-PUSH.yml'
+    branches: [ main ]
+  pull_request:
+    paths:
+      - 'apis/user-java/**'
+      - '.github/workflows/USER-JAVA-BUILD-PUSH.yml'
+    branches: [ main ]
+  
+env:
+  ACRNAME: "openhackck258x60acr"
+  CONTAINER_REGISTRY: openhackck258x60acr.azurecr.io
+  IMAGE_NAME_USER_JAVA: "devopsoh/api-user-java"
+  BASEIMAGETAG_USER_JAVA: ${{ github.sha }}
+  AZURE_WEBAPP_NAME: "openhackck258x60userjava"
+  REGISTRY_USERNAME: "openhackck258x60acr"
+  REGISTRY_PASSWORD: "rR3FtFLI6kqyY+Q5ew4vFnu384K9vkGu"
+
+jobs:
+
+  Build_Image:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Recuperation du repos 
+      uses: actions/checkout@v2
+        
+    - name: Docker Build USER-JAVA
+      run: |
+        cd apis/user-java && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}      
+    
+    - name: Login ACR for push
+      uses: Azure/login@v1
+      with:        
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        
+    - name: ACR authentication
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.CONTAINER_REGISTRY }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}    
+        
+    - name: Push to ACR
+      run: |
+        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}
+        
+    - name: 'Deploy to Azure Web App for Container'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}
