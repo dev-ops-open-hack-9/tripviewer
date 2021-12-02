@@ -32,9 +32,9 @@ jobs:
     - name: Recuperation du repos 
       uses: actions/checkout@v2
         
-    - name: Docker Build POI
-      run: |
-        cd apis/poi/web && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}      
+#    - name: Docker Build POI
+#      run: |
+#        cd apis/poi/web && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}      
     
     - name: Login ACR for push
       uses: Azure/login@v1
@@ -64,14 +64,14 @@ jobs:
       run: |
         sleep 15s
         testStage=`curl -sb -i https://openhackck258x60poi-staging.azurewebsites.netx/api/healthcheck/poi | grep -q Healthy && echo "success" || echo 'failed'`
-        [ $testStage != 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
+        [ $testStage == 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
         testProd=`curl -sb -i https://openhackck258x60poi.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || echo 'failed'`
         [ $testProd != 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot production --target-slot staging || echo "Successful"
     
         
-    - name: Stop the stage
-      run: |
-        az webapp stop -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
+#    - name: Stop the stage
+#      run: |
+#        az webapp stop -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
 
 
 
