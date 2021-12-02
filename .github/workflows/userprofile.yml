@@ -15,9 +15,8 @@ on:
   
 env:
   ACRNAME: "openhackck258x60acr"
-  IMAGE_NAME_POI: "devopsoh/api-userprofile"
-#  BASEIMAGETAG_POI: ${{ github.sha }}
-  BASEIMAGETAG_POI: "123456789"
+  IMAGE_NAME_USERPROFILE: "devopsoh/api-userprofile"
+  BASEIMAGETAG_USERPROFILE: ${{ github.sha }}
   AZURE_WEBAPP_NAME: "openhackck258x60userprofile"
 
 
@@ -33,7 +32,7 @@ jobs:
         
     - name: Docker Build USERPROFILE
       run: |
-        cd apis/userprofile && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}      
+        cd apis/userprofile && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}      
     
     - name: Login ACR for push
       uses: Azure/login@v1
@@ -46,13 +45,13 @@ jobs:
         
     - name: Push to ACR
       run: |
-        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
+        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}
     
     - name: 'Deploy to Azure Web App for Container'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
-        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
+        images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}
 
        
     
