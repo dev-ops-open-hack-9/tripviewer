@@ -31,9 +31,9 @@ jobs:
     - name: Recuperation du repos 
       uses: actions/checkout@v2
         
-    - name: Docker Build USERPROFILE
-      run: |
-        cd apis/userprofile && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}      
+#    - name: Docker Build USERPROFILE
+#      run: |
+#        cd apis/userprofile && docker build . -t ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}      
     
     - name: Login ACR for push
       uses: Azure/login@v1
@@ -44,15 +44,33 @@ jobs:
       run: |
         az acr login --name ${{ env.ACRNAME }}
         
-    - name: Push to ACR
+#    - name: Push to ACR
+#      run: |
+#        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}
+
+    - name: Start the stage
       run: |
-        docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}
+        az webapp start -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
     
-    - name: 'Deploy to Azure Web App for Container'
-      uses: azure/webapps-deploy@v2
-      with: 
-        app-name: ${{ env.AZURE_WEBAPP_NAME }} 
-        images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}
+#    - name: 'Deploy to Azure Web App for Container'
+#      uses: azure/webapps-deploy@v2
+#      with: 
+#        app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+#        images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_USERPROFILE }}:${{ env.BASEIMAGETAG_USERPROFILE }}
+
+    - name: 'Swap'
+      run: |
+        sleep 15s
+        testStage=`curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || echo 'failed'`
+        echo 'testStage' $testStage
+        [ $testStage == 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
+        testProd=`curl -sb -i https://openhackck258x60poi.azurewebsites.netx/api/healthcheck/poi | grep -q Healthy && echo "success" || echo 'failed'`
+        echo 'testProd' $testProd
+        [ $testProd != 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot production --target-slot staging || echo "Successful"
+        
+    - name: Stop the stage
+      run: |
+        az webapp stop -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
 
        
     
