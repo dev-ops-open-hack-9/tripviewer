@@ -58,6 +58,7 @@ jobs:
         
     - name: 'Test if application is running'
       run: |
+        sleep 15s
         curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || echo '::error API not available' && false }}
         
     
