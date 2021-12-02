@@ -68,7 +68,7 @@ jobs:
         [ $testStage == 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
         testProd=`curl -sb -i https://openhackck258x60poi.azurewebsites.netx/api/healthcheck/poi | grep -q Healthy && echo "success" || echo 'failed'`
         echo 'testProd' $testProd
-        [ $testProd != 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot production --target-slot staging || echo "Successful"
+        [ $testProd != 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production || echo "Successful"
     
         
     - name: Stop the stage
