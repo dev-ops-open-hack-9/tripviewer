@@ -53,6 +53,17 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
         images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_USER_JAVA }}:${{ env.BASEIMAGETAG_USER_JAVA }}
 
+    - name: Start the stage
+      run: |
+        az webapp start -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
+    
+ #   - name: 'Deploy to Azure Web App for Container'
+ #     uses: azure/webapps-deploy@v2
+ #     with: 
+ #       app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+ #       images: ${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
+ #       slot-name: staging
+
     - name: 'Swap'
       run: |
         sleep 15s
