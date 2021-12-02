@@ -16,7 +16,8 @@ on:
 env:
   ACRNAME: "openhackck258x60acr"
   IMAGE_NAME_POI: "devopsoh/api-userprofile"
-  BASEIMAGETAG_POI: ${{ github.sha }}
+#  BASEIMAGETAG_POI: ${{ github.sha }}
+  BASEIMAGETAG_POI: "123456789"
   AZURE_WEBAPP_NAME: "openhackck258x60userprofile"
 
 
