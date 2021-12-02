@@ -62,7 +62,7 @@ jobs:
         curl -sb -i https://openhackck258x60poi-staging.azurewebsites.net/api/healthcheck/poi | grep -q Healthy && echo "success" || false }}
     
     - name: Swap
-      run: az webapp deployment slot swap -g openhackck258x60rg -n ${{ AZURE_WEBAPP_NAME }} --slot staging --target-slot production
+      run: az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging --target-slot production
     
         
         
