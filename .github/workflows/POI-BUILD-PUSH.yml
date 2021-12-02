@@ -53,7 +53,7 @@ jobs:
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
         images: ${{ env.ACRNAME }}/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
-        slot-name: stage
+        slot-name: staging
 
        
     
