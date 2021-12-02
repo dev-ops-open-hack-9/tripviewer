@@ -49,9 +49,9 @@ jobs:
  #     run: |
  #       docker push ${{ env.ACRNAME }}.azurecr.io/${{ env.IMAGE_NAME_POI }}:${{ env.BASEIMAGETAG_POI }}
 
- #   - name: Start the stage
- #     run: |
- #       az webapp start -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
+    - name: Start the stage
+      run: |
+        az webapp start -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
     
  #   - name: 'Deploy to Azure Web App for Container'
  #     uses: azure/webapps-deploy@v2
@@ -71,9 +71,9 @@ jobs:
         [ $testProd != 'success' ] && az webapp deployment slot swap -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot production --target-slot staging || echo "Successful"
     
         
-#    - name: Stop the stage
-#      run: |
-#        az webapp stop -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
+    - name: Stop the stage
+      run: |
+        az webapp stop -g openhackck258x60rg -n ${{ env.AZURE_WEBAPP_NAME }} --slot staging
 
 
 
